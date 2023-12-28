@@ -1,0 +1,12 @@
+1
+wmic memorychip get banklabel, capacity, speed, manufacturer, devicelocator, partnumber, configuredvoltage, serialnumber
+2
+Get-WmiObject -Class "Win32_PhysicalMemory"
+3
+systeminfo | findstr "памят"
+4
+просто сводные сведения о системе
+6
+отладка окна модули
+7
+свойства компоновщик дополнительно базовый адрес

@@ -1,0 +1,8 @@
+﻿  main.cpp
+D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab04\OS11_HTAPI\Element.h(15,3): warning C4091: __declspec(dllexport): пропускается слева от "ht::Element", когда ни одна переменная не объявлена
+  (компиляция исходного файла "main.cpp")
+  
+D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab04\OS11_HTAPI\HT.h(43,3): warning C4091: __declspec(dllexport): пропускается слева от "ht::HtHandle", когда ни одна переменная не объявлена
+  (компиляция исходного файла "main.cpp")
+  
+  OS11_CREATE.vcxproj -> D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab04\x64\Debug\OS11_CREATE.exe

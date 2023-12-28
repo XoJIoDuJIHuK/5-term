@@ -1,0 +1,10 @@
+﻿  CFactory.cpp
+  COM.cpp
+  dllmain.cpp
+  INSTALL.cpp
+  Registry.cpp
+D:\_УЧЁБА_\5сем\СП\Лабораторные\2\SP02\SP02_COM\Registry.cpp(151,24): warning C4267: аргумент: преобразование из "size_t" в "DWORD"; возможна потеря данных
+  SP02.cpp
+  Создание кода...
+     Создается библиотека D:\_УЧЁБА_\5сем\СП\Лабораторные\2\SP02\x64\Debug\SP02_COM.lib и объект D:\_УЧЁБА_\5сем\СП\Лабораторные\2\SP02\x64\Debug\SP02_COM.exp
+  SP02_COM.vcxproj -> D:\_УЧЁБА_\5сем\СП\Лабораторные\2\SP02\x64\Debug\SP02_COM.dll

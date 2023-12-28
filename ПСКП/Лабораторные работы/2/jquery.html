@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XHR</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let url = 'http://localhost:5000/api/name';
+
+        $.ajax(url, {
+            method: 'get',
+            crossDomain: true
+        })
+            .done(function(data) {
+                let response = data;
+                let infoParagraph = document.querySelector("#info");
+                infoParagraph.innerHTML += response;
+                console.log(response);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Ошибка: ' + textStatus + ' ' + errorThrown);
+            });
+    </script>
+</head>
+<body>
+    <h3 id="info">Dynamic info: </h3>
+</body>
+</html>

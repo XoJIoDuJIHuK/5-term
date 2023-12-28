@@ -1,0 +1,5 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (UDPclient.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  client.cpp
+D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab07\UDPclient\client.cpp(49,59): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab07\UDPclient\client.cpp(34,10): warning C4101: serverSocket: неиспользованная локальная переменная
+  UDPclient.vcxproj -> D:\_УЧЁБА_\5сем\СП\Лабораторные\SP_Lab07\x64\Debug\TCPclient.exe

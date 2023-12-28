@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factorial</title>
+</head>
+<body>
+    <ol id="list"></ol>
+    <script>
+        let list = document.querySelector('#list');
+        const startTime = Date.now();
+        for (let i = 0; i < 20; i++) {
+            let k = Math.floor(Math.random() * 100);
+            fetch(`http://localhost:5000/fact?k=${k}`).then(response => {
+                if (!response.ok) console.error(response.status)
+                else {
+                    return response.text();
+                }
+            }).then(data => {
+                let json = JSON.parse(String(data));
+                list.innerHTML += `<li>Результат: ${Date.now() - startTime}-${k}/${json.fact}</li>`;
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08-01</title>
+</head>
+<body>
+<h1>08-01</h1>
+<button id="startWS">startWS</button>
+
+<script>
+    const startWSButton = document.getElementById('startWS');
+
+    startWSButton.addEventListener('click', () => {
+        const ws = new WebSocket('ws://localhost:4000');
+        let messageNumber = 0;
+        ws.addEventListener('open', () => {
+            console.log('WebSocket connection opened');
+            const messageInterval = setInterval(() => {
+                ws.send(`08-01-client: ${messageNumber++}`)
+            }, 3000)
+            setTimeout(() => {
+                ws.close()
+                clearInterval(messageInterval)
+            }, 25000)
+        });
+
+        ws.addEventListener('message', (event) => {
+            console.log(`Received message from server: ${event.data}`);
+        });
+
+        ws.addEventListener('close', () => {
+            console.log('WebSocket connection closed');
+        });
+    });
+</script>
+</body>
+</html>

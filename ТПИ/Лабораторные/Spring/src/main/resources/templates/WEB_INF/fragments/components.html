@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <script th:src="@{/js/common.js}" defer></script>
+    <p id="p" style="font-size: 200%; padding: 0 0 0 50px;">XD(B)</p>
+    <button class="add-offer btn btn-secondary" onclick="showAddOfferForm()">
+        Toggle add offer form visibility
+    </button>
+    <button class="filter-offers btn btn-secondary" onclick="showFilterOffersForm()">
+        Toggle filter offers form visibility
+    </button>
+     <div id="authLinks"></div>
+        <script>
+            function showAddOfferForm() {
+                const form = document.querySelector('#add-offer-form')
+                form.classList.toggle('hidden')
+            }
+            function showFilterOffersForm() {
+                document.querySelector('#filter-offers-form').classList.toggle('hidden')
+            }
+            function fillAuthLinks() {
+                const authLinks = document.querySelector("#authLinks");
+                authLinks.innerHTML = "";
+                const token = window.localStorage.getItem("token");
+                if (token) {
+                    const userId = window.localStorage.getItem("userId");
+                    fetch(`/api/v1/user/isAdmin?userId=${userId}`, {
+                        headers: {'Authorization': `Bearer ${token}`}
+                    }).then(async response => {
+                        console.log(response.status + " xd")
+                        if (!response.ok) {
+                            const text = await response.text()
+                            throw new Error(text)
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        const isAdmin = data['message'] === "xd"
+                        const signOut = document.createElement("button");
+                        signOut.onclick = () => {
+                            localStorage.clear();
+                            window.location.assign("/signin");
+                        }
+                        signOut.classList.add('link');
+                        signOut.innerHTML = "Sign Out";
+
+                        if (isAdmin) {
+                            const admin  = document.createElement("button");
+                            admin.onclick = () => {
+                              window.location.assign("/admin");
+                            }
+                            admin.classList.add('link');
+                            admin.innerHTML = "Admin_ka";
+                            authLinks.appendChild(admin);
+
+                            const home  = document.createElement("button");
+                            home.onclick = () => {
+                              window.location.assign("/");
+                            }
+                            home.classList.add('link');
+                            home.innerHTML = "Home";
+                            authLinks.appendChild(home);
+                        }
+                        authLinks.appendChild(signOut);
+                    })
+                        .catch(e => {
+                            console.error(e)
+                        })
+                } else {
+                    const signIn  = document.createElement("button");
+                    signIn.onclick = () => {
+                        window.location.assign("/signin");
+                    }
+                    signIn.classList.add('link');
+                    signIn.innerHTML = "Sign In";
+
+                    const signUp  = document.createElement("button");
+                    signUp.onclick = () => {
+                        window.location.assign("/signup");
+                    }
+                    signUp.classList.add('link');
+                    signUp.innerHTML = "Sign Up";
+
+                    authLinks.appendChild(signIn);
+                    authLinks.appendChild(signUp);
+                }
+            }
+
+            fillAuthLinks();
+        </script>
+    </header>
+
+<footer th:fragment="footer">
+    <p id="p" >&copy; 2023 - Aleh Tachyla</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</footer>
+</body>
+</html>

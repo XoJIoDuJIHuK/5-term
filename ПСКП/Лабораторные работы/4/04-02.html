@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="methods-wrapper">
+    <input type="radio" name="method" id="radio-get"><label for="radio-get">GET</label><br>
+    <input type="radio" name="method" id="radio-post"><label for="radio-post">POST</label><br>
+    <input type="radio" name="method" id="radio-put"><label for="radio-put">PUT</label><br>
+    <input type="radio" name="method" id="radio-delete"><label for="radio-delete">DELETE</label><br>
+</div>
+<div id="get-wrapper" class="input-wrapper hidden"></div>
+<div id="row-data-wrapper" class="input-wrapper hidden">
+    <label for="input-id">ID</label><input type="number" id="input-id"><br>
+    <label for="input-name">NAME</label><input type="text" id="input-name"><br>
+    <label for="input-bday">BDAY</label><input type="date" id="input-bday"><br>
+</div>
+<div id="row-number-wrapper" class="input-wrapper hidden">
+    <label for="delete-id">ID</label><input type="number" id="delete-id">
+</div>
+<div id="submit-button-wrapper" class="input-wrapper hidden">
+    <button onmousedown="buttonClick()">Click me</button>
+</div>
+
+
+    <script>
+        let selectedMethod
+        function buttonClick() {
+            switch (selectedMethod) {
+                case 'post': {
+                    const row = {
+                        id: document.querySelector('#input-id').value,
+                        name: document.querySelector('#input-name').value,
+                        bday: document.querySelector('#input-bday').value
+                    }
+                    SendRequest('post', JSON.stringify(row)).then(response => {
+                        if (response.ok) {
+                            return response.text()
+                        } else console.error('Response is not ok')
+                    }).then(response => {
+                        console.log("post response:", response)
+                        document.querySelector('#get-wrapper').innerText = response
+                    })
+                    break
+                }
+                case 'put': {
+                    const row = {
+                        id: document.querySelector('#input-id').value,
+                        name: document.querySelector('#input-name').value,
+                        bday: document.querySelector('#input-bday').value
+                    }
+                    SendRequest('put', JSON.stringify(row)).then(response => {
+                        if (response.ok) {
+                            return response.text()
+                        } else console.error('Response is not ok')
+                    }).then(response => {
+                        console.log("put response:", response)
+                        document.querySelector('#get-wrapper').innerText = response
+                    })
+                    break
+                }
+                case 'delete': {
+                    SendRequest('delete', document.querySelector('#delete-id').value).then(response => {
+                        if (response.ok) {
+                            return response.text()
+                        } else console.error('Response is not ok')
+                    }).then(response => {
+                        console.log("delete response:", response)
+                        document.querySelector('#get-wrapper').innerText = response
+                    }).catch(errorMessage => {
+                        document.querySelector('#get-wrapper').innerText = errorMessage
+                    })
+                    break
+                }
+            }
+        }
+
+        for (let radioButton of document.querySelectorAll('input[type="radio"]')) {
+            radioButton.addEventListener('change', function(event) {
+                for (const inputWrapper of document.querySelectorAll('.input-wrapper')) {
+                    if (!inputWrapper.classList.contains('hidden'))
+                        inputWrapper.classList.add('hidden')
+                }
+                if (event.target.checked) {
+                    switch (event.target.id) {
+                        case 'radio-get': {
+                            selectedMethod = 'get'
+
+                            const dataField = document.querySelector('#get-wrapper')
+                            dataField.classList.remove('hidden')
+                            SendRequest('get').then(response => {
+                                if (response.ok) {
+                                    return response.text()
+                                } else console.error('Response is not ok')
+                            }).then(response => {
+                                const getWrapper = document.querySelector('#get-wrapper')
+                                console.log("get response:", response)
+                                getWrapper.innerText = response
+                            })
+                            break
+                        }
+                        case 'radio-post': {
+                            selectedMethod = 'post'
+
+                            const dataField = document.querySelector('#get-wrapper')
+                            dataField.classList.remove('hidden')
+                            const inputWrapper = document.querySelector('#row-data-wrapper')
+                            inputWrapper.classList.remove('hidden')
+                            const buttonWrapper = document.querySelector('#submit-button-wrapper')
+                            buttonWrapper.classList.remove('hidden')
+                            break
+                        }
+                        case 'radio-put': {
+                            selectedMethod = 'put'
+
+                            const inputWrapper = document.querySelector('#row-data-wrapper')
+                            inputWrapper.classList.remove('hidden')
+                            const buttonWrapper = document.querySelector('#submit-button-wrapper')
+                            buttonWrapper.classList.remove('hidden')
+                            const dataField = document.querySelector('#get-wrapper')
+                            dataField.classList.remove('hidden')
+                            break
+                        }
+                        case 'radio-delete': {
+                            selectedMethod = 'delete'
+
+                            const inputWrapper = document.querySelector('#row-number-wrapper')
+                            inputWrapper.classList.remove('hidden')
+                            const buttonWrapper = document.querySelector('#submit-button-wrapper')
+                            buttonWrapper.classList.remove('hidden')
+                            const dataField = document.querySelector('#get-wrapper')
+                            dataField.classList.remove('hidden')
+                            break
+                        }
+                    }
+                }
+            })
+        }
+
+        function SendRequest(action, data) {
+            let method = 'get'
+            let url = 'http://localhost:5000/api/db';
+
+            switch (action) {
+                case 'get': {
+                    url = 'http://localhost:5000/api/db'
+                    break
+                }
+                case 'post': {
+                    url = 'http://localhost:5000/api/db'
+                    method = 'post'
+                    break
+                }
+                case 'put': {
+                    url = 'http://localhost:5000/api/db'
+                    method = 'put'
+                    break
+                }
+                case 'delete': {
+                    console.log(data)
+                    if (isNaN(+data)) return undefined
+
+                    method = 'delete'
+                    url = `http://localhost:5000/api/db?id=${data}`
+                    break
+                }
+            }
+            return fetch(url, {
+                method: method,
+                body: data
+            })
+        }
+    </script>
+</body>
+</html>

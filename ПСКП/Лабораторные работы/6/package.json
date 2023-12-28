@@ -1,0 +1,18 @@
+{
+  "name": "6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "06-00.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "multiparty": "^4.2.3",
+    "util": "^0.12.5",
+    "xml2js": "^0.6.2"
+  }
+}

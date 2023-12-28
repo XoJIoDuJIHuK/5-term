@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Delete game</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+
+    <h1>Delete game:</h1>
+    <form th:action="@{/deletegame}"
+          th:object="${gameform}" method="POST">
+        <p>Name:
+            <input type="text" th:field="*{name}" />
+        </p>
+        <p>Developer:
+            <input type="text" th:field="*{developerName}" />
+        </p>
+        <input class ="button-main-page" type="submit" value="Delete" />
+    </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+</div>
+</body>

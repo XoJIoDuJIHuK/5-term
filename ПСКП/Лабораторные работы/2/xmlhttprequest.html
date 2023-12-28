@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XHR</title>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.async = true;
+        let url = 'http://localhost:5000/api/name';
+
+        xhr.open('get', url);
+
+        xhr.addEventListener('load', function() {
+            if (xhr.status === 200) {
+                let response = xhr.responseText;
+                let infoParagraph = document.querySelector("#info");
+                infoParagraph.innerHTML += response;
+            } else {
+                console.error('Ошибка: ' + xhr.status);
+            }
+        });
+
+        xhr.send();
+    </script>
+</head>
+<body>
+    <h3 id="info">Dynamic info: </h3>
+</body>
+</html>

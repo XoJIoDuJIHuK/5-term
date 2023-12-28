@@ -1,0 +1,11 @@
+{
+  "name": "m05_tov",
+  "version": "1.0.0",
+  "description": "CPSD Lab05 package",
+  "main": "m05_TOV.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "XoJIoDuJIbHuK",
+  "license": "MIT"
+}
